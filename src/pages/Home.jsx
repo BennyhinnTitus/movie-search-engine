@@ -1,9 +1,29 @@
 import MovieCard from "../components/MovieCard"
-import movies from "../movies"
 import React from "react"
+import { getPopularMovies } from "../api"
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = React.useState("")
+    const [movies, setMovies] = React.useState([])
+    const [error, setError] = React.useState(null)
+    const [loading, setLoading] = React.useState(true)
+
+    React.useEffect(() => {
+        async function loadPopularMovies() {
+            try {
+                const popularMovies = await getPopularMovies()
+                setMovies(popularMovies)
+            }
+            catch (err) {
+                console.log("Error:", err)
+                setError(err)
+            }
+            finally {
+                setLoading(false)
+            }
+        }
+        loadPopularMovies()
+    }, [])
 
     function submitForm(event) {
         event.preventDefault()
@@ -33,7 +53,12 @@ const Home = () => {
             </form>
 
             <div className="movies">
-                {mappedMovies}
+                {error && <div className="error">{error}</div>}
+                
+                {loading ? 
+                <div className="loading">Loading...</div> 
+                : 
+                mappedMovies}
             </div>
         </div>
     )
