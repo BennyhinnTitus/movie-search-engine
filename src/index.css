@@ -187,6 +187,28 @@ body {
     color: #ffb400;
 }
 
+/* Loading and Error styles */
+.loading {
+    text-align: center;
+    color: #ffb400;
+    font-size: 1.3rem;
+    padding: 2rem 0;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.error {
+    text-align: center;
+    color: #ff4d4f;
+    background: #2a1a1a;
+    border: 1px solid #ff4d4f;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 700px) {
     .movies {
