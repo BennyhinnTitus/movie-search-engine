@@ -1,6 +1,6 @@
 import MovieCard from "../components/MovieCard"
 import React from "react"
-import { getPopularMovies } from "../api"
+import { getPopularMovies, searchMovie } from "../api"
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = React.useState("")
@@ -11,12 +11,13 @@ const Home = () => {
     React.useEffect(() => {
         async function loadPopularMovies() {
             try {
+                setLoading(true)
                 const popularMovies = await getPopularMovies()
                 setMovies(popularMovies)
             }
             catch (err) {
-                console.log("Error:", err)
-                setError(err)
+                console.log("Error: ", err)
+                setError("There's an error in 'getPopularMovies()' API call!")
             }
             finally {
                 setLoading(false)
@@ -25,8 +26,21 @@ const Home = () => {
         loadPopularMovies()
     }, [])
 
-    function submitForm(event) {
+    async function submitForm(event) {
         event.preventDefault()
+        if (!searchQuery.trim()) { return }
+        try {
+            setLoading(true)
+            const searchedMovies = await searchMovie(searchQuery)
+            setMovies(searchedMovies)
+        }
+        catch (err) {
+            console.log("Error: ", err)
+            setError("There's an error in 'searchMovie()' API call!")
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
     function updateSearchQuery(event) {
