@@ -138,8 +138,8 @@ body {
     opacity: 1;
 }
 
-.favorite {
-    background: rgba(255,255,255,0.9);
+.heart-btn {
+    background: #ffb400;
     border: none;
     border-radius: 50%;
     font-size: 1.3rem;
@@ -149,9 +149,12 @@ body {
     color: #ffb400;
 }
 
-.favorite:hover {
-    background: #ffb400;
-    color: #fff;
+.favorite::after {
+    content: "❤️";
+}
+
+.not-favorite::after {
+    content: "🤍";
 }
 
 .information {
@@ -176,15 +179,32 @@ body {
 
 /* Favorites page */
 .Favorites {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 2rem auto;
-    padding: 2rem 1rem;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 1.3rem;
+    text-align: initial;
+    color: inherit;
+}
+
+/* Empty state for Favorites */
+.Favorites.empty {
+    display: block;
     background: #232323;
     border-radius: 18px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     font-size: 1.3rem;
     text-align: center;
     color: #ffb400;
+    padding: 2rem 1rem;
+    margin: 2rem auto;
+    max-width: 900px;
 }
 
 /* Loading and Error styles */
@@ -207,6 +227,13 @@ body {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
     font-weight: 500;
+}
+
+.fav-title {
+    text-align: center;
+    color: #ffb400;
+    padding-top: 25px;
+    padding-bottom: 15px;
 }
 
 /* Responsive */
