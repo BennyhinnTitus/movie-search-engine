@@ -1,12 +1,33 @@
+import { useMovieContext } from "../contexts/MovieContext"
+import clsx from "clsx"
+
 const MovieCard = ({movie}) => {
-    function addToFavorite() {}
+    const { addToFavorites, removeFromFavorites, isFavorite } = useMovieContext()
+
+    const isFav = isFavorite(movie.id)
+    
+    const className = clsx(
+        "heart-btn",
+        isFav && "favorite",
+        !isFav && "not-favorite"
+    )
+
+    function toggleFavorite(event) {
+        event.preventDefault()
+        if (isFav) {
+            removeFromFavorites(movie.id)
+        }
+        else {
+            addToFavorites(movie)
+        }
+    }
 
     return (
         <div className="MovieCard">
             <div className="poster">
                 <img className="poster-image" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                 <div className="overlay">
-                    <button onClick={addToFavorite} className="favorite">🤍</button>
+                    <button onClick={toggleFavorite} className={className}></button>
                 </div>
             </div>
 
